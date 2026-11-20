@@ -138,6 +138,28 @@ class KNearestNeighbor:
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return dists
 
+    def l1(self, X):
+        num_test = X.shape[0]
+        num_train = self.X_train.shape[0]
+        dists = np.zeros((num_test, num_train))
+        for i in range(num_test):
+            for j in range(num_train):
+                dists[i, j] = np.sum(np.abs(self.X_train[j] - X[i]))
+
+        return dists
+        
+    def l1div(self, X):
+        X = X / 2
+        X_train = self.X_train / 2
+        num_test = X.shape[0]
+        num_train = self.X_train.shape[0]
+        dists = np.zeros((num_test, num_train))
+        for i in range(num_test):
+            for j in range(num_train):
+                dists[i, j] = np.sum(np.abs(X_train[j] - X[i]))
+
+        return dists
+    
     def predict_labels(self, dists, k=1):
         """
         Given a matrix of distances between test points and training points,
